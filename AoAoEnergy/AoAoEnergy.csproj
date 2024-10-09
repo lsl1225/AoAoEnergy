@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="ResourceLoader.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DalamudPackager" Version="2.1.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Penumbra.Api\Penumbra.Api.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Dalamud">
+			<Private>false</Private>
+			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Dalamud.dll</HintPath>
+		</Reference>
+		<Reference Include="FFXIVClientStructs">
+			<Private>false</Private>
+			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
+		</Reference>
+		<Reference Include="Lumina">
+			<Private>false</Private>
+			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Lumina.dll</HintPath>
+		</Reference>
+		<Reference Include="Lumina.Excel">
+			<Private>false</Private>
+			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="AoAoEnergy.pmp">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

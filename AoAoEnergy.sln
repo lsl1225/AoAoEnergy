@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AoAoEnergy", "AoAoEnergy\AoAoEnergy.csproj", "{4A5DCE17-DE6A-4068-B611-C359F66B1040}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penumbra.Api", "Penumbra.Api\Penumbra.Api.csproj", "{5A269F91-2CB6-4F77-B81D-7A64A373622B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A269F91-2CB6-4F77-B81D-7A64A373622B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A269F91-2CB6-4F77-B81D-7A64A373622B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A269F91-2CB6-4F77-B81D-7A64A373622B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A269F91-2CB6-4F77-B81D-7A64A373622B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0BC65EF1-8031-4082-AE4D-159D1CD5D333}
+	EndGlobalSection
+EndGlobal
