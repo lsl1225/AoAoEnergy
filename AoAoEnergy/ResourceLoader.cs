@@ -18,7 +18,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.Object;
 
 namespace AoAoEnergy
 {
-    internal unsafe class ResourceLoader
+    internal unsafe class ResourceLoader:IDisposable
     {
         [StructLayout(LayoutKind.Explicit)]
         public unsafe struct ResourceHandle
@@ -127,7 +127,7 @@ namespace AoAoEnergy
             if (replacedPath == null || replacedPath.Length >= 260)
             {
                 var unreplaced = GetResourceAsyncHook.Original(resourceManager, categoryId, resourceType, resourceHash, path, resParams, isUnknown);
-                Plugin.PluginLog.Debug($"[GetResourceHandler] ORIGINAL: {gamePathString} -> " + new IntPtr(unreplaced).ToString("X8"));
+                //Plugin.PluginLog.Debug($"[GetResourceHandler] ORIGINAL: {gamePathString} -> " + new IntPtr(unreplaced).ToString("X8"));
                 return unreplaced;
             }
 
@@ -138,9 +138,9 @@ namespace AoAoEnergy
             path = resolvedPath.InternalName.Path;
 
             var replaced = GetResourceAsyncHook.Original(resourceManager, categoryId, resourceType, resourceHash, path, resParams, isUnknown);
-            Plugin.PluginLog.Debug($"[GetResourceHandler] REPLACED: {gamePathString} -> {replacedPath} -> " + new IntPtr(replaced).ToString("X8"));
+            //Plugin.PluginLog.Debug($"[GetResourceHandler] REPLACED: {gamePathString} -> {replacedPath} -> " + new IntPtr(replaced).ToString("X8"));
             return replaced;
-        
+
         }
 
         public static int ComputeHash(CiByteString path, GetResourceParameters* resParams)
@@ -190,7 +190,7 @@ namespace AoAoEnergy
             var originalPath = originalGamePath.ToString();
             var isPenumbra = ProcessPenumbraPath(originalPath, out var gameFsPath);
 
-            Plugin.PluginLog.Debug($"[ReadSqpackHandler] {gameFsPath}");
+            //Plugin.PluginLog.Debug($"[ReadSqpackHandler] {gameFsPath}");
 
             var isRooted = Path.IsPathRooted(gameFsPath);
 
@@ -209,7 +209,7 @@ namespace AoAoEnergy
             // call the original if it's a penumbra path that doesn't need replacement as well
             if (gameFsPath == null || gameFsPath.Length >= 260 || !isRooted || isPenumbra)
             {
-                Plugin.PluginLog.Debug($"[ReadSqpackHandler] ORIGINAL: {originalPath}");
+                //Plugin.PluginLog.Debug($"[ReadSqpackHandler] ORIGINAL: {originalPath}");
                 return ReadSqpackHook.Original(fileHandler, fileDesc, priority, isSync);
             }
 
@@ -229,6 +229,26 @@ namespace AoAoEnergy
             return ReadFile(fileHandler, fileDesc, priority, isSync);
         }
 
+        private Dictionary<string, string> RepalcePaths =new Dictionary<string, string>();
+        public void AddReplace(string gameFsPath,string replacePath)
+        {
+            this.RepalcePaths.Add(gameFsPath, replacePath);
+            Plugin.PluginLog.Info($"Add Repalce: {gameFsPath} -> {replacePath}");
+        }
+        private bool GetReplacePath(string gameFsPath, out string localPath)
+        {
+            if (RepalcePaths.TryGetValue(gameFsPath, out localPath))
+            {
+                Plugin.PluginLog.Info($"REPLACED: {gameFsPath} {localPath}");
+                return true;
+            }
+            else
+            {
+                localPath = null;
+                return false;
+            }
+        }
+
         private static bool ProcessPenumbraPath(string path, out string outPath)
         {
             outPath = path;
@@ -243,11 +263,18 @@ namespace AoAoEnergy
         }
 
         public delegate byte ReadFileDelegate(IntPtr fileHandler, SeFileDescriptor* fileDesc, int priority, bool isSync);
-        private ReadFileDelegate ReadFile = Marshal.GetDelegateForFunctionPointer<ReadFileDelegate>(Plugin.SigScanner.ScanText("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 63 42"));
+        private ReadFileDelegate ReadFile;
 
         public ResourceLoader()
         {
             Plugin.GameInteropProvider.InitializeFromAttributes(this);
+            ReadFile = Marshal.GetDelegateForFunctionPointer<ReadFileDelegate>(Plugin.SigScanner.ScanText("48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 41 54 41 55 41 56 41 57 48 81 EC ?? ?? ?? ?? 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 84 24 ?? ?? ?? ?? 48 63 42"));
+            this.GetResourceAsyncHook?.Enable();
+            this.ReadSqpackHook?.Enable();
+        }
+        public void Dispose() {
+            this.GetResourceAsyncHook?.Dispose();
+            this.ReadSqpackHook?.Dispose();
         }
     }
 }

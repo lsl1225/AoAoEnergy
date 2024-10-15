@@ -5,18 +5,25 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<Version>1.0.1.0</Version>
+		<IncludeSymbols>False</IncludeSymbols>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <Compile Remove="ResourceLoader.cs" />
-	</ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DalamudPackager" Version="2.1.13" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Penumbra.Api\Penumbra.Api.csproj" />
+	  <!--<ProjectReference Include="..\Penumbra.Api\Penumbra.Api.csproj" />-->
+	  <ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,8 +46,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="AoAoEnergy.pmp">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  <None Update="AoAoEnergy.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="ev_energydrink_01x_30s.avfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 

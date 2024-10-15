@@ -1,3 +1,6 @@
 [submodule "Penumbra.Api"]
 	path = Penumbra.Api
 	url = https://github.com/Ottermandias/Penumbra.Api.git
+[submodule "Penumbra.String"]
+	path = Penumbra.String
+	url = https://github.com/Ottermandias/Penumbra.String.git
