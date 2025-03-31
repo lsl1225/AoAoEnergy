@@ -1,25 +1,36 @@
 ﻿using Dalamud.Hooking;
 using Dalamud.Utility.Signatures;
-using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.System.Resource;
-using Penumbra.String.Classes;
 using Penumbra.String;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
+using Penumbra.String.Classes;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using System.Text;
-using System.Threading.Tasks;
 using CsHandle = FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
-using FFXIVClientStructs.FFXIV.Client.System.File;
-using Dalamud.Game;
-using FFXIVClientStructs.FFXIV.Client.Game.Object;
 
 namespace AoAoEnergy
 {
-    internal unsafe class ResourceLoader:IDisposable
+    internal unsafe class ResourceLoader : IDisposable
     {
+        public enum LoadState : byte
+        {
+            Constructing = 0x00,
+            Constructed = 0x01,
+            Async2 = 0x02,
+            AsyncRequested = 0x03,
+            Async4 = 0x04,
+            AsyncLoading = 0x05,
+            Async6 = 0x06,
+            Success = 0x07,
+            Unknown8 = 0x08,
+            Failure = 0x09,
+            FailedSubResource = 0x0A,
+            FailureB = 0x0B,
+            FailureC = 0x0C,
+            FailureD = 0x0D,
+            None = 0xFF,
+        }
+
         [StructLayout(LayoutKind.Explicit)]
         public unsafe struct ResourceHandle
         {
@@ -37,7 +48,7 @@ namespace AoAoEnergy
             }
 
             public readonly CiByteString FileName()
-                => CiByteString.FromSpanUnsafe(CsHandle.FileName.AsSpan(), true);
+                => CsHandle.FileName.AsByteString();
 
             public readonly bool GamePath(out Utf8GamePath path)
                 => Utf8GamePath.FromSpan(CsHandle.FileName.AsSpan(), MetaDataComputation.All, out path);
@@ -52,7 +63,7 @@ namespace AoAoEnergy
             public ResourceCategory Category;
 
             [FieldOffset(0x0C)]
-            public uint FileType;
+            public ResourceType FileType;
 
             [FieldOffset(0x28)]
             public uint FileSize;
@@ -63,8 +74,11 @@ namespace AoAoEnergy
             [FieldOffset(0x58)]
             public int FileNameLength;
 
+            [FieldOffset(0xA8)]
+            public byte UnkState;
+
             [FieldOffset(0xA9)]
-            public byte LoadState;
+            public LoadState LoadState;
 
             [FieldOffset(0xAC)]
             public uint RefCount;
@@ -180,7 +194,8 @@ namespace AoAoEnergy
         private Hook<ReadSqpackDelegate> ReadSqpackHook;
         private byte ReadSqpackDetour(IntPtr fileHandler, SeFileDescriptor* fileDesc, int priority, bool isSync)
         {
-            if (fileDesc->ResourceHandle == null) return ReadSqpackHook.Original(fileHandler, fileDesc, priority, isSync);
+            if (fileDesc->ResourceHandle == null)
+                return ReadSqpackHook.Original(fileHandler, fileDesc, priority, isSync);
 
             if (!fileDesc->ResourceHandle->GamePath(out var originalGamePath))
             {
@@ -229,8 +244,8 @@ namespace AoAoEnergy
             return ReadFile(fileHandler, fileDesc, priority, isSync);
         }
 
-        private Dictionary<string, string> RepalcePaths =new Dictionary<string, string>();
-        public void AddReplace(string gameFsPath,string replacePath)
+        private Dictionary<string, string> RepalcePaths = new Dictionary<string, string>();
+        public void AddReplace(string gameFsPath, string replacePath)
         {
             this.RepalcePaths.Add(gameFsPath, replacePath);
             Plugin.PluginLog.Info($"Add Repalce: {gameFsPath} -> {replacePath}");
@@ -252,11 +267,14 @@ namespace AoAoEnergy
         private static bool ProcessPenumbraPath(string path, out string outPath)
         {
             outPath = path;
-            if (string.IsNullOrEmpty(path)) return false;
-            if (!path.StartsWith('|')) return false;
+            if (string.IsNullOrEmpty(path))
+                return false;
+            if (!path.StartsWith('|'))
+                return false;
 
             var split = path.Split("|");
-            if (split.Length != 3) return false;
+            if (split.Length != 3)
+                return false;
 
             outPath = split[2];
             return true;
@@ -272,7 +290,9 @@ namespace AoAoEnergy
             this.GetResourceAsyncHook?.Enable();
             this.ReadSqpackHook?.Enable();
         }
-        public void Dispose() {
+
+        public void Dispose()
+        {
             this.GetResourceAsyncHook?.Dispose();
             this.ReadSqpackHook?.Dispose();
         }

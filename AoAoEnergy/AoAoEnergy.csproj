@@ -1,47 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Dalamud.NET.Sdk/12.0.2">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<Version>1.0.1.0</Version>
 		<IncludeSymbols>False</IncludeSymbols>
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DebugType>none</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DebugType>none</DebugType>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="11.0.0" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="Dalamud">
-			<Private>false</Private>
-			<HintPath>$(appdata)\XIVLauncherCN\addon\Hooks\dev\Dalamud.dll</HintPath>
-		</Reference>
-		<Reference Include="FFXIVClientStructs">
-			<Private>false</Private>
-			<HintPath>$(appdata)\XIVLauncherCN\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
-		</Reference>
-		<Reference Include="Lumina">
-			<Private>false</Private>
-			<HintPath>$(appdata)\XIVLauncherCN\addon\Hooks\dev\Lumina.dll</HintPath>
-		</Reference>
-		<Reference Include="Lumina.Excel">
-			<Private>false</Private>
-			<HintPath>$(appdata)\XIVLauncherCN\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>

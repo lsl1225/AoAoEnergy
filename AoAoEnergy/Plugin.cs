@@ -78,7 +78,6 @@ namespace AoAoEnergy
         private delegate bool IsShowInCaremaDelegate(Character* chara);
         private IsShowInCaremaDelegate IsShowInCarema;
 
-        //private PenumbraService PenumbraService;
         private ResourceLoader ResourceLoader;
 
         public Plugin()
@@ -96,7 +95,6 @@ namespace AoAoEnergy
             //throw new NotImplementedException();
             CreateResultVfxHook?.Dispose();
             ResourceLoader?.Dispose();
-            //PenumbraService?.Dispose();
         }
     }
 }
