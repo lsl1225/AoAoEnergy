@@ -5,9 +5,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<Version>1.2.0.0</Version>
+		<Version>7.3.0.0</Version>
 		<IncludeSymbols>False</IncludeSymbols>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="ev_energydrink_01x_30s.avfx" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
@@ -20,6 +24,10 @@
 		<None Update="ev_energydrink_01x_30s.avfx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="DalamudPackager" Version="13.0.0" />
 	</ItemGroup>
 
 </Project>
