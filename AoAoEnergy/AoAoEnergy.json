@@ -5,6 +5,6 @@
   "Description": "可我还要打本啊！为了不睡过去，我需要补充能量。这时候就轮到我最爱的能量饮料登场了……",
   "IconUrl": "https://cafemaker.wakingsands.com/i/024000/024420_hr1.png",
   "Tags": [ "VFX", "AVFX" ],
-  "DalamudApiLevel": 13,
+  "DalamudApiLevel": 14,
   "LoadPriority": 99
 }
