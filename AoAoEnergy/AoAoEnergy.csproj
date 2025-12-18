@@ -30,4 +30,12 @@
 	  <PackageReference Update="DalamudPackager" Version="14.0.0" />
 	</ItemGroup>
 
+	<Target Name="PackagePlugin" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<DalamudPackager
+                ProjectDir="$(ProjectDir)"
+                OutputPath="$(OutputPath)"
+                AssemblyName="$(AssemblyName)"
+                MakeZip="true"/>
+	</Target>
+
 </Project>
