@@ -15,9 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="AoAoEnergy.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 		<None Update="ev_energydrink_01x_30s.avfx">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
