@@ -1,25 +1,14 @@
-﻿using Dalamud.Data;
-using Dalamud.Game;
-using Dalamud.Game.ClientState;
-using Dalamud.Game.Command;
-using Dalamud.Game.Gui;
+﻿using Dalamud.Game;
 using Dalamud.Hooking;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility.Signatures;
-using FFXIVClientStructs;
-using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
-using System.Runtime.InteropServices;
-using Lumina;
-using Lumina.Excel.GeneratedSheets;
-using FFXIVClientStructs.FFXIV.Client.Game.Fate;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
+using System.Runtime.InteropServices;
 //using Penumbra.Api.IpcSubscribers.Legacy;
 //using Penumbra.Api.Enums;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace AoAoEnergy
 {
@@ -120,44 +109,10 @@ namespace AoAoEnergy
             CreateResultVfxHook?.Enable();
         }
 
-        public void InitMod()
-        {
-            //Task.Run(() =>
-            //{
-            //    Thread.Sleep(1000);
-            //    PenumbraService = new PenumbraService(PluginInterface);
-            //    Thread.Sleep(500);
-            //    var collection = PenumbraService._currentCollection!.Invoke(ApiCollectionType.Current);
-            //    var (ec, modState) = PenumbraService._getCurrentSettings!.Invoke(collection!.Value.Id, this.Name);
-            //    if (ec == PenumbraApiEc.ModMissing)
-            //    {
-            //        PluginLog.Info($"Installing AoAoEnergy mod");
-            //        var modPath = Path.Combine(PluginInterface.AssemblyLocation.Directory!.FullName, "AoAoEnergy.pmp");
-            //        PluginLog.Debug($"{modPath}");
-            //        ec = PenumbraService._installMod!.Invoke(modPath);
-            //        if (ec is not PenumbraApiEc.Success)
-            //            PluginLog.Error("Fail to install mod.");
-            //    }
-            //    Thread.Sleep(1000);
-            //    (ec, modState) = PenumbraService._getCurrentSettings!.Invoke(collection!.Value.Id, this.Name);
-            //    if (modState!.Value.Item1 == false)
-            //    {
-            //        PluginLog.Info($"Enabling AoAoEnergy mod");
-            //        PluginLog.Debug($"{collection!.Value.Name}");
-            //        var modDir = PenumbraService._getModDir!.Invoke();
-            //        ec = PenumbraService._setMod!.Invoke(collection.Value.Id, modDir, true, modName: this.Name);
-            //        if (ec is not PenumbraApiEc.Success)
-            //            PluginLog.Error("Fail to enable mod.");
-            //    };
-            //});
-        }
-
         public void Dispose()
         {
-            //throw new NotImplementedException();
             CreateResultVfxHook?.Dispose();
             ResourceLoader?.Dispose();
-            //PenumbraService?.Dispose();
         }
     }
 }

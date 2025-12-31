@@ -1,57 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Dalamud.NET.Sdk/14.0.1">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<Version>1.0.1.0</Version>
+		<Version>1.0.2.0</Version>
 		<IncludeSymbols>False</IncludeSymbols>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <DebugType>none</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DebugType>none</DebugType>
-	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DalamudPackager" Version="2.1.13" />
+		<!--<ProjectReference Include="..\Penumbra.Api\Penumbra.Api.csproj" />-->
+		<ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <!--<ProjectReference Include="..\Penumbra.Api\Penumbra.Api.csproj" />-->
-	  <ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="Dalamud">
-			<Private>false</Private>
-			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Dalamud.dll</HintPath>
-		</Reference>
-		<Reference Include="FFXIVClientStructs">
-			<Private>false</Private>
-			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\FFXIVClientStructs.dll</HintPath>
-		</Reference>
-		<Reference Include="Lumina">
-			<Private>false</Private>
-			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Lumina.dll</HintPath>
-		</Reference>
-		<Reference Include="Lumina.Excel">
-			<Private>false</Private>
-			<HintPath>..\..\..\Games\FFXIV_Utils\XIVLauncherCN\Roaming\addon\Hooks\dev\Lumina.Excel.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="AoAoEnergy.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="ev_energydrink_01x_30s.avfx">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="AoAoEnergy.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="ev_energydrink_01x_30s.avfx">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
