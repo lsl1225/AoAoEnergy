@@ -9,18 +9,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penumbra.String", "Penumbra
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|x64.ActiveCfg = Debug|x64
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Debug|x64.Build.0 = Debug|x64
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|x64.ActiveCfg = Release|x64
+		{4A5DCE17-DE6A-4068-B611-C359F66B1040}.Release|x64.Build.0 = Release|x64
+		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Debug|x64.ActiveCfg = Debug|x64
+		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Debug|x64.Build.0 = Debug|x64
+		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Release|x64.ActiveCfg = Release|x64
+		{3CBCA245-EB4F-4A36-8BD3-66924B16837B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
