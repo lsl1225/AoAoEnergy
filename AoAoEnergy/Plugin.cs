@@ -7,6 +7,9 @@ using Dalamud.Utility.Signatures;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using System.Runtime.InteropServices;
+using static FFXIVClientStructs.FFXIV.Client.Game.Character.ActionEffectHandler;
+//using Penumbra.Api.IpcSubscribers.Legacy;
+//using Penumbra.Api.Enums;
 
 namespace AoAoEnergy
 {
@@ -36,38 +39,30 @@ namespace AoAoEnergy
         [PluginService]
         internal static ISigScanner SigScanner { get; set; }
 
-        [StructLayout(LayoutKind.Explicit, Size = 0x8)]
-        struct ActionResult
-        {
-            [FieldOffset(0x0)] public byte Type;
-            [FieldOffset(0x1)] public byte Arg0;
-            [FieldOffset(0x2)] public byte Arg1;
-            [FieldOffset(0x3)] public byte Arg2;
-            [FieldOffset(0x4)] public byte Arg3;
-            [FieldOffset(0x5)] public byte Arg4;
-            [FieldOffset(0x6)] public UInt16 Value;
-        }
         internal const string AoAoVfxPath = "vfx/common/eff/ev_energydrink_01x_30s.avfx";
-        private delegate void CreateResultVfxDelegate(IntPtr actionResult, Character* cast, Character* target, uint action, ActionResult* result);
+        private delegate void CreateResultVfxDelegate(ActionEffectHandler* actionHandler, Character* cast, Character* target, uint action, Effect* result);
         [Signature("48 85 D2 0F 84 ?? ?? ?? ?? 53 55 57", DetourName = nameof(CreateResultVfxDetour))]
         private Hook<CreateResultVfxDelegate> CreateResultVfxHook;
-        private void CreateResultVfxDetour(IntPtr a, Character* cast, Character* target, uint action, ActionResult* result)
+
+        //private delegate void ApplyOneTargetEffectDelegate(IntPtr actionResult, Character* cast, Character* target, uint action, ActionResult* result);
+        //[Signature("E8 ?? ?? ?? ?? 48 FF C6 48 83 FE 08", DetourName = nameof(ApplyOneTargetEffectVfxDetour))]
+        //private Hook<ApplyOneTargetEffectDelegate> ApplyOneTargetEffectHook;
+        private void CreateResultVfxDetour(ActionEffectHandler* actionHandler, Character* cast, Character* target, uint action, Effect* result)
         {
-#if DEBUG
-            // May crash game
-            //var status = DataManager.GetExcelSheet<Lumina.Excel.GeneratedSheets.Status>();
-            //PluginLog.Debug($"{cast->NameString} {target->NameString} {result->Type} {result->Value}");
-#endif
-            //PluginLog.Debug($"{cast->NameString} {target->NameString} {result->Type} {result->Value} {IsShowInCarema(cast)}");
             if (result->Type == 14 && result->Value == 49)
             {
-                if (((nint)cast != 0 || IsShowInCarema(cast))
-                 && ((nint)target != 0 || IsShowInCarema(target)))
+                if (((nint)cast != 0 || IsShowInCarema(cast)) && ((nint)target != 0 || IsShowInCarema(target)))
+                {
+                    //foreach (var item in actionHandler->IncomingEffects)
+                    //{
+                    //    PluginLog.Info($"{item.ActionId} {item.ActionType} {action}");
+                    //}
                     CreateVfx?.Invoke(AoAoVfxPath, &cast->GameObject, &target->GameObject, -1, (char)0, 0, (char)0);
+                }
             }
             else
             {
-                CreateResultVfxHook.Original(a, cast, target, action, result);
+                CreateResultVfxHook.Original(actionHandler, cast, target, action, result);
             }
 
         }
@@ -92,7 +87,6 @@ namespace AoAoEnergy
 
         public void Dispose()
         {
-            //throw new NotImplementedException();
             CreateResultVfxHook?.Dispose();
             ResourceLoader?.Dispose();
         }
