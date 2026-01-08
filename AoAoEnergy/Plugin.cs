@@ -1,5 +1,4 @@
-﻿using Dalamud.Game;
-using Dalamud.Hooking;
+﻿using Dalamud.Hooking;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
@@ -8,8 +7,6 @@ using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using System.Runtime.InteropServices;
 using static FFXIVClientStructs.FFXIV.Client.Game.Character.ActionEffectHandler;
-//using Penumbra.Api.IpcSubscribers.Legacy;
-//using Penumbra.Api.Enums;
 
 namespace AoAoEnergy
 {
@@ -44,19 +41,12 @@ namespace AoAoEnergy
         [Signature("48 85 D2 0F 84 ?? ?? ?? ?? 53 55 57", DetourName = nameof(CreateResultVfxDetour))]
         private Hook<CreateResultVfxDelegate> CreateResultVfxHook;
 
-        //private delegate void ApplyOneTargetEffectDelegate(IntPtr actionResult, Character* cast, Character* target, uint action, ActionResult* result);
-        //[Signature("E8 ?? ?? ?? ?? 48 FF C6 48 83 FE 08", DetourName = nameof(ApplyOneTargetEffectVfxDetour))]
-        //private Hook<ApplyOneTargetEffectDelegate> ApplyOneTargetEffectHook;
         private void CreateResultVfxDetour(ActionEffectHandler* actionHandler, Character* cast, Character* target, uint action, Effect* result)
         {
             if (result->Type == 14 && result->Value == 49)
             {
                 if (((nint)cast != 0 || IsShowInCarema(cast)) && ((nint)target != 0 || IsShowInCarema(target)))
                 {
-                    //foreach (var item in actionHandler->IncomingEffects)
-                    //{
-                    //    PluginLog.Info($"{item.ActionId} {item.ActionType} {action}");
-                    //}
                     CreateVfx?.Invoke(AoAoVfxPath, &cast->GameObject, &target->GameObject, -1, (char)0, 0, (char)0);
                 }
             }

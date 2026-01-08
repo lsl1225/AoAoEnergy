@@ -2,20 +2,19 @@
 
 	<PropertyGroup>
 		<Name>AoAoEnergy</Name>
-		<Author>Loskh</Author>
+		<Author>Loskh, lsl1225</Author>
 		<Punchline>宣传是用于新人的怪怪的能量饮料。 (将爆发药特效替换为嗷嗷有劲的RGB)</Punchline>
 		<Description>可我还要打本啊！为了不睡过去，我需要补充能量。这时候就轮到我最爱的能量饮料登场了……</Description>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<Version>1.0.3.0</Version>
+		<Version>7.4.0.1</Version>
 		<IncludeSymbols>False</IncludeSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <None Include="ev_energydrink_01x_30s.avfx" />
 	</ItemGroup>
-
 
 	<ItemGroup>
 		<ProjectReference Include="..\Penumbra.String\Penumbra.String.csproj" />
